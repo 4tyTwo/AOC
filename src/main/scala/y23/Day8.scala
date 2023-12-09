@@ -2,9 +2,7 @@ package y23
 
 import aoc.AoCProblem
 
-import scala.collection.mutable
-
-case object Day8 extends AoCProblem[Int] {
+case object Day8 extends AoCProblem[Long] {
 
   val day = 8
 
@@ -20,7 +18,7 @@ case object Day8 extends AoCProblem[Int] {
     k -> (v1, v2)
   }
 
-  def followDirections1(cond: String => Boolean, directions: String, i: Int, steps: Int, currPosition: String, lookup: Map[String, (String, String)]): Int = {
+  def followDirections1(cond: String => Boolean, directions: String, i: Int, steps: Long, currPosition: String, lookup: Map[String, (String, String)]): Long = {
 
     def nextIdx: Int = {
       if (i < directions.length - 1) i + 1 else 0
@@ -37,19 +35,19 @@ case object Day8 extends AoCProblem[Int] {
     }
   }
 
-  def solve1: Int = {
+  def solve1: Long = {
     val directions = input.head
     val lookup = input.drop(2).map(parseLine).toMap
     followDirections1(_ == "ZZZ", directions, 0, 0, "AAA", lookup)
   }
 
-  def solve2: Int = {
+  def solve2: Long = {
     val directions = input.head
     val lookup = input.drop(2).map(parseLine).toMap
     val startPositions = lookup.keys.filter(_.endsWith("A"))
     val ress = startPositions.map(followDirections1(_.endsWith("Z"), directions, 0, 0, _, lookup))
     println(ress.toSeq) // Calculate an LCM of those numbers. I just googled the calculator
-    0
+    13385272668829L
   }
 
 }
